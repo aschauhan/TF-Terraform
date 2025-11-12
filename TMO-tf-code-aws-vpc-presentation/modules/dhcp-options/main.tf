@@ -9,11 +9,7 @@ resource "aws_vpc_dhcp_options" "this" {
   {
     Name                  = "${var.application_ou_name}-${var.environment}-dhcp-options-${var.region}"
     "Resource Type"       = "dhcp-option"
-    "Creation Date"       = timestamp()
-    "Environment"         = var.environment
     "Application ou name" = var.application_ou_name
-    "Created by"          = "Cloud Network Team"
-    "Region"              = var.region
   },var.base_tags
   )
 }

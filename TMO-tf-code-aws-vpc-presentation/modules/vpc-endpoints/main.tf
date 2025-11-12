@@ -13,11 +13,7 @@ resource "aws_vpc_endpoint" "ssm" {
   {
     Name                  = "${var.application_ou_name}-${var.environment}-ssm-${var.region}"
     "Resource Type"       = "endpoint"
-    "Creation Date"       = timestamp()
-    "Environment"         = var.environment
     "Application ou name" = var.application_ou_name
-    "Created by"          = "Cloud Network Team"
-    "Region"              = var.region
   },var.base_tags
   )
 }

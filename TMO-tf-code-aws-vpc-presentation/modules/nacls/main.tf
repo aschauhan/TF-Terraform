@@ -7,11 +7,7 @@ resource "aws_network_acl" "public" {
   {
     Name                  = "${var.application_ou_name}-${var.environment}-public-nacl-${var.region}"
     "Resource Type"       = "nacl"
-    "Creation Date"       = timestamp()
-    "Environment"         = var.environment
     "Application ou name" = var.application_ou_name
-    "Created by"          = "Cloud Network Team"
-    "Region"              = var.region
   },var.base_tags
   )
 }

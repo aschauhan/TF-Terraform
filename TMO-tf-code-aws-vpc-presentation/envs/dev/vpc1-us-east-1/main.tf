@@ -11,7 +11,7 @@ module "vpc" {
   application_ou_name = var.application_ou_name
   environment         = var.environment
   region              = var.region
-  base_tags           = var.base_tags
+  base_tags           = local.base_tags
  # tags             = merge(local.common_tags, var.tags)
 }
 
@@ -24,7 +24,7 @@ module "subnets" {
   application_ou_name = var.application_ou_name
   environment         = var.environment
   region              = var.region
-  base_tags           = var.base_tags
+  base_tags           = local.base_tags
   public_subnet_cidrs      = var.public_subnet_cidrs
   private_subnet_cidrs     = var.private_subnet_cidrs
   nonroutable_subnet_cidrs = var.nonroutable_subnet_cidrs
@@ -45,7 +45,7 @@ module "nacls" {
   application_ou_name = var.application_ou_name
   environment         = var.environment
   region              = var.region
-  base_tags           = var.base_tags
+  base_tags           = local.base_tags
 
   public_subnet_map = {
     "public-a" = module.subnets.public_subnets[0]
@@ -81,7 +81,7 @@ module "gateways" {
   application_ou_name = var.application_ou_name
   environment         = var.environment
   region              = var.region
-  base_tags           = var.base_tags
+  base_tags           = local.base_tags
 
   depends_on = [module.subnets]
 }
@@ -101,6 +101,7 @@ module "route_tables" {
   environment         = var.environment
   region              = var.region
   base_tags           = var.base_tags
+
   # tags                   = merge(local.common_tags, var.tags)
 
   depends_on = [module.gateways, module.subnets]
@@ -112,7 +113,7 @@ module "security" {
   vpc_id = module.vpc.vpc_id
   name   = var.name
   # tags   = merge(local.common_tags, var.tags)
-
+  base_tags   = local.base_tags
   depends_on = [module.vpc]
 }
 
@@ -130,11 +131,13 @@ module "dhcp_options" {
   application_ou_name = var.application_ou_name
   environment         = var.environment
   region              = var.region
-  base_tags           = var.base_tags
+  # base_tags           = var.base_tags
+  base_tags           = local.base_tags  
 
   depends_on = [module.vpc]
 }
 
+###### tags to be fix to pick from locals 
 module "ssm_endpoints" {
   source            = "../../../modules/vpc-endpoints"
   vpc_id            = module.vpc.vpc_id
@@ -145,6 +148,7 @@ module "ssm_endpoints" {
   route_table_ids = concat(
   module.route_tables.private_route_table_ids,
   module.route_tables.nonroutable_route_table_ids
+  
   )
   # tags              = merge(local.common_tags, var.tags)
   application_ou_name = var.application_ou_name

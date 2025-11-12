@@ -5,7 +5,7 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
-
+variable "base_tags" { type = map(string) }
 variable "endpoint_allowed_cidrs" {
   description = "CIDR blocks allowed to connect to VPC Interface Endpoints"
   type        = list(string)

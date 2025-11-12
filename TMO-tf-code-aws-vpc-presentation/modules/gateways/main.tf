@@ -5,11 +5,7 @@ resource "aws_internet_gateway" "igw" {
   {
     Name                  = "${var.application_ou_name}-${var.environment}-igw-${var.region}"
     "Resource Type"       = "igw"
-    "Creation Date"       = timestamp()
-    "Environment"         = var.environment
     "Application ou name" = var.application_ou_name
-    "Created by"          = "Cloud Network Team"
-    "Region"              = var.region
   },var.base_tags
   )
 }

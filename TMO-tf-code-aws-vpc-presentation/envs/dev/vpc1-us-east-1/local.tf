@@ -1,8 +1,8 @@
 locals {
-  common_tags = {
-    Environment = "dev"
-    Project     = "vpc-setup"
-    Owner       = "TMO"
-    ManagedBy   = "Terraform"
+  base_tags = {
+    "Creation Date" = timestamp()
+    "Environment"   = var.environment
+    "Region"        = var.region
+    "Created by"    = "Cloud Network Team"
   }
 }

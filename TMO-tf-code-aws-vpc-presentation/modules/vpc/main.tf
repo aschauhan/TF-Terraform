@@ -6,13 +6,9 @@ resource "aws_vpc" "main" {
   {
     Name                  = "${var.application_ou_name}-${var.environment}-vpc-${var.region}"
     "Resource Type"       = "vpc"
-    "Creation Date"       = timestamp()
-    "Environment"         = var.environment
     "Application ou name" = var.application_ou_name
-    "Created by"          = "Cloud Network Team"
-    "Region"              = var.region
-  },var.base_tags
-)
+     },var.base_tags 
+    )
 }
 
 # Associate additional CIDRs

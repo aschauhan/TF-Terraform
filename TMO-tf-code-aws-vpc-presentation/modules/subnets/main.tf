@@ -4,15 +4,21 @@ resource "aws_subnet" "public" {
   cidr_block              = var.public_subnet_cidrs[count.index]
   availability_zone       = var.azs[count.index]
   map_public_ip_on_launch = true
-  tags = merge(
+  # tags = merge(
+  # {
+  #   Name                  = "${var.application_ou_name}-${var.environment}-public-subnet-${var.region}"
+  #   "Resource Type"       = "subnet"
+  #   "Creation Date"       = timestamp()
+  #   "Environment"         = var.environment
+  #   "Application ou name" = var.application_ou_name
+  #   "Created by"          = "Cloud Network Team"
+  #   "Region"              = var.region
+  # },var.base_tags
+   tags = merge(
   {
-    Name                  = "${var.application_ou_name}-${var.environment}-subnet-${var.region}"
+    Name                  = "${var.application_ou_name}-${var.environment}-public-subnet-${var.region}"
     "Resource Type"       = "subnet"
-    "Creation Date"       = timestamp()
-    "Environment"         = var.environment
-    "Application ou name" = var.application_ou_name
-    "Created by"          = "Cloud Network Team"
-    "Region"              = var.region
+    "Application ou name" = var.application_ou_name    
   },var.base_tags
   )
 }
@@ -24,13 +30,9 @@ resource "aws_subnet" "private" {
   availability_zone = var.azs[count.index]
   tags = merge(
   {
-    Name                  = "${var.application_ou_name}-${var.environment}-subnet-${var.region}"
+    Name                  = "${var.application_ou_name}-${var.environment}-private-subnet-${var.region}"
     "Resource Type"       = "subnet"
-    "Creation Date"       = timestamp()
-    "Environment"         = var.environment
     "Application ou name" = var.application_ou_name
-    "Created by"          = "Cloud Network Team"
-    "Region"              = var.region
   },var.base_tags
   )
 }
@@ -42,13 +44,9 @@ resource "aws_subnet" "nonroutable" {
   availability_zone = var.azs[count.index]
   tags = merge(
   {
-    Name                  = "${var.application_ou_name}-${var.environment}-subnet-${var.region}"
+    Name                  = "${var.application_ou_name}-${var.environment}-nr-subnet-${var.region}"
     "Resource Type"       = "subnet"
-    "Creation Date"       = timestamp()
-    "Environment"         = var.environment
     "Application ou name" = var.application_ou_name
-    "Created by"          = "Cloud Network Team"
-    "Region"              = var.region
   },var.base_tags
   )
 }
